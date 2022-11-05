@@ -10,6 +10,13 @@ class BankAccount {
     double balance;
     public:
     BankAccount();
+    BankAccount(string accountID , double balance);
+    void setBalance(double balance);
+    void setAccountID (string accountID);
+    string getAccountID ();
+    double getBalance();
+    int withdraw(double amount);
+    int deposit(double amount);
 };
 
 #endif
