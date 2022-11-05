@@ -4,12 +4,12 @@
 #include <iostream>
 using namespace std;
 
-class bankAccount {
-    private:
+class BankAccount {
+    protected:
     string accountID;
     double balance;
     public:
-    bankAccount();
+    BankAccount();
 };
 
 #endif
