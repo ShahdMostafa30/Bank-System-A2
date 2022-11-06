@@ -12,6 +12,7 @@ class BankApplication {
     private:
     vector<BankAccount> accounts;
     vector<Client> clients;
+    string accId;
     public:
     BankApplication();
     void showMenu();

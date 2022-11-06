@@ -23,6 +23,34 @@ void BankApplication::showMenu() {
 }
 
 void BankApplication::createAccount() {
+    string name;
+    string address;
+    string phone;
+    double balance;
+    int choice;
+    cout << "please Enter Client name " << endl;
+    cin >> name;
+
+    cout << "please Enter Client address " << endl;
+    cin >> address;
+
+    cout << "please Enter Client phone number " << endl;
+    cin >> phone;
+
+    cout << "What Type of Account Do You Like? (1) Basic (2) Saving" << endl;
+    cin >> choice;
+
+    cout << "Enter the Starting Balance" << endl;
+    cin >> balance;
+
+    if(choice == 1) {
+        Client client(name, address, phone, BankAccount(accId, balance));
+    } else if (choice == 2) {
+        Client client(name, address, phone, SavingsBankAccount());
+    } else {
+        cout << "wrong choice" << endl;
+        exit(0);
+    } 
     
 }
 
