@@ -12,10 +12,7 @@ class Client{
     string phoneNum;
     BankAccount *bankAcc;
     public:
-    Client();
-    void setName(string n);
-    void setAddress(string a);
-    void setPhoneNum(string p);
+    Client(string n, string a, string p, BankAccount _bankAcc);
     string getName();
     string getAddress();
     string getPhoneNum();
