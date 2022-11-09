@@ -5,12 +5,22 @@
 #include "bankAccount.h"
 #include "savingsBankAccount.h"
 #include "client.h"
+#include <vector>
 using namespace std;
 
-class BankAppliaction {
+class BankApplication {
     private:
+    vector<BankAccount> accounts;
+    vector<Client> clients;
+    string accId;
     public:
-    BankAppliaction();
+    BankApplication();
+    void showMenu();
+    void createAccount();
+    void listClientsAndAccounts();
+    void withdrawMoney();
+    void depositMoney();
+
 };
 
 #endif

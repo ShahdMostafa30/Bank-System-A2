@@ -2,14 +2,23 @@
 #define CLIENT_H
 
 #include <iostream>
+#include "bankAccount.h"
+#include "savingsBankAccount.h"
 using namespace std;
 
 class Client{
     private:
     string name;
-    double minimunBalance;
+    string address;
+    string phoneNum;
+    BankAccount *bankAcc;
+    SavingsBankAccount *savingAcc;
     public:
-    Client();
+    Client(string n, string a, string p, BankAccount _bankAcc);
+    Client(string n, string a, string p, SavingsBankAccount _bankAcc);
+    string getName();
+    string getAddress();
+    string getPhoneNum();
 };
 
 #endif
