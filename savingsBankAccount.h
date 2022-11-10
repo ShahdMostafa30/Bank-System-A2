@@ -8,6 +8,7 @@ using namespace std;
 class SavingsBankAccount : public BankAccount {
     private:
     double minimumBalance;
+    bool savings = true;
     public:
     SavingsBankAccount(string accountID, double balance, double minBalance = 1000);
     SavingsBankAccount();
@@ -15,6 +16,7 @@ class SavingsBankAccount : public BankAccount {
     double getMinimumBalance();
     int withdraw(double amount);
     int deposit(double amount);
+    bool getType();
     
 };
 
