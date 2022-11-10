@@ -2,9 +2,9 @@
 #define BANKAPPLICATION_H
 
 #include <iostream>
-#include "bankAccount.cpp"
-#include "savingsBankAccount.cpp"
-#include "client.cpp"
+#include "bankAccount.h"
+#include "savingsBankAccount.h"
+#include "client.h"
 #include <vector>
 using namespace std;
 
