@@ -7,9 +7,15 @@ using namespace std;
 
 class SavingsBankAccount : public BankAccount {
     private:
-    double minimunBalance;
+    double minimumBalance;
     public:
+    SavingsBankAccount(string accountID, double balance, double minBalance = 1000);
     SavingsBankAccount();
+    void setMinimumBalance(double minimumBalance);
+    double getMinimumBalance();
+    int withdraw(double amount);
+    int deposit(double amount);
+    
 };
 
 #endif
