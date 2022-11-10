@@ -10,13 +10,13 @@ class SavingsBankAccount : public BankAccount {
     double minimumBalance;
     bool savings = true;
     public:
-    SavingsBankAccount(string accountID, double balance, double minBalance = 1000);
+    SavingsBankAccount(string accountID, double balance, double minBalance);
     SavingsBankAccount();
     void setMinimumBalance(double minimumBalance);
     double getMinimumBalance();
     int withdraw(double amount);
     int deposit(double amount);
-    bool isSaving();
+    virtual bool isSaving();
 };
 
 #endif

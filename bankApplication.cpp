@@ -6,7 +6,7 @@ void BankApplication::showMenu() {
         cout << "Welcome to our Banking Application "<< endl
         << "1. Create a New Account" << endl
         << "2. List Clients and Accounts" << endl
-        <<" 3. Withdraw Money" << endl
+        << "3. Withdraw Money" << endl
         << "4. Deposit Money" << endl
         << "0. exit " << endl;
 
@@ -36,12 +36,11 @@ void BankApplication::createAccount() {
     double balance;
     double minBalance;
     int type;
-    
     string numId = to_string(clients.size()+1);
     while(numId.length() < 3) {
         numId.insert(0, "0");
     }
-
+    
     accId = "FCAI-" + numId;
     cout << "please Enter Client name " << endl;
     cin >> name;
@@ -59,17 +58,25 @@ void BankApplication::createAccount() {
     cin >> balance;
 
     if(type == 1) {
-        BankAccount bankAcc(accId, balance);
-        Client client(name, address, phone, bankAcc);
-        clients.push_back(client);
-        accounts.push_back(bankAcc);
+        clients.push_back(new Client(name, address, phone, new BankAccount(accId, balance)));
+        accounts.push_back(new BankAccount(accId, balance));
     } else if (type == 2) {
         cout << "Enter the minimum Balance" << endl;
+        cout << "Enter (0) to keep the default minimum balance = 1000" << endl;
         cin >> minBalance;
-        SavingsBankAccount bankAcc(accId, balance, minBalance);
-        Client client(name, address, phone, bankAcc);
-        clients.push_back(client);
-        accounts.push_back(bankAcc);
+
+
+        if(balance >= minBalance && minBalance != 0) {
+            clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));
+            accounts.push_back(new SavingsBankAccount(accId, balance, minBalance));
+        } else if (balance >= 1000 && minBalance == 0) {
+            clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance)));
+            accounts.push_back(new SavingsBankAccount(accId, balance));
+        } else {
+            cout << "balance should be greater than or equal minimum balance" << endl;
+            exit(0);
+        }
+        
     } else {
         cout << "wrong choice" << endl;
         exit(0);
@@ -81,13 +88,13 @@ void BankApplication::createAccount() {
 
 void BankApplication::listClientsAndAccounts(){
     for(int i = 0; i < clients.size(); i++) {
-        cout << "name : " << clients[i].getName() << endl;
-        cout << "Address : " << clients[i].getAddress() << endl;
-        cout << "Phone : " << clients[i].getPhoneNum() << endl;
-        cout << "AccId : " << accounts[i].getAccountID() << endl;
+        cout << "name : " << clients[i]->getName() << endl;
+        cout << "Address : " << clients[i]->getAddress() << endl;
+        cout << "Phone : " << clients[i]->getPhoneNum() << endl;
+        cout << "AccId : " << accounts[i]->getAccountID() << endl;
         cout << "Acc Type : ";
-        accounts[i].isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl;
-        cout << "Balance : " << accounts[i].getBalance() << endl;
+        accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl;
+        cout << "Balance : " << accounts[i]->getBalance() << endl << endl; 
     }
 }
 
@@ -95,19 +102,21 @@ void BankApplication::withdrawMoney() {
     int amount;
     cout << "Please Enter Account ID (e.g., FCAI-015)" << endl;
     cin >> accId;
+    bool validId;
     
     for(int i = 0; i < accounts.size(); i++) {
-        if(accounts[i].getAccountID() == accId) {
+        if(accounts[i]->getAccountID() == accId) {
+            validId = true;
             cout << "Acc Type : ";
-            accounts[i].isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
-            cout << "Balance : " << accounts[i].getBalance() << endl;
+            accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
+            cout << "Balance : " << accounts[i]->getBalance() << endl;
             cout << "Please Enter The Amount to Withdraw " << endl;
             cin >> amount;
 
-            if(accounts[i].withdraw(amount) == 1) {
+            if(accounts[i]->withdraw(amount) == 1) {
                 cout << "Thank you. " << endl;
                 cout << "Account ID: " << accId << endl;
-                cout << "New Balance: " << accounts[i].getBalance() << endl;
+                cout << "New Balance: " << accounts[i]->getBalance() << endl;
             }
             else {
                 cout << "Sorry. This is more than what you can withdraw." << endl;
@@ -115,28 +124,37 @@ void BankApplication::withdrawMoney() {
         }
     }
     
+    if(!validId) {
+        cout << "Id not found " << endl;
+    }
 }
 
 void BankApplication::depositMoney() {
     int amount;
     cout << "Please Enter Account ID (e.g., FCAI-015)" << endl;
     cin >> accId;
+    bool validId;
     
     for(int i = 0; i < accounts.size(); i++) {
-        if(accounts[i].getAccountID() == accId) {
+        if(accounts[i]->getAccountID() == accId) {
+            validId = true;
             cout << "Acc Type : ";
-            accounts[i].isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
-            cout << "Balance : " << accounts[i].getBalance() << endl;
+            accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
+            cout << "Balance : " << accounts[i]->getBalance() << endl;
             cout << "Please Enter The Amount to deposit " << endl;
             cin >> amount;
 
-            if(accounts[i].deposit(amount) == 1) {
+            if(accounts[i]->deposit(amount) == 1) {
                 cout << "Thank you. " << endl;
                 cout << "Account ID: " << accId << endl;
-                cout << "New Balance: " << accounts[i].getBalance() << endl;
+                cout << "New Balance: " << accounts[i]->getBalance() << endl;
             } else {
                 cout << "Sorry. This is less than what you can deposit." << endl;
             }
         }
+    }
+
+    if(!validId) {
+        cout << "Id not found " << endl;
     }
 }
