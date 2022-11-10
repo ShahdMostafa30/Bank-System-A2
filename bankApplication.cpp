@@ -1,24 +1,31 @@
 #include "bankApplication.h"
 
 void BankApplication::showMenu() {
-    cout << "Welcome to our Banking Application "<< endl
+
+    while(true) {
+        cout << "Welcome to our Banking Application "<< endl
         << "1. Create a New Account" << endl
         << "2. List Clients and Accounts" << endl
         <<" 3. Withdraw Money" << endl
-        << "4. Deposit Money" << endl << endl;
+        << "4. Deposit Money" << endl
+        << "0. exit " << endl;
 
-    int choice;
-    cin >> choice;
+        int choice;
+        cin >> choice;
 
-    if(choice == 1) {
-        createAccount();
-    } else if(choice == 2) {
-        listClientsAndAccounts();
-    } else if(choice == 3) {
-        withdrawMoney();
-    } else if(choice == 4) {
-        depositMoney();
+        if(choice == 1) {
+            createAccount();
+        } else if(choice == 2) {
+            listClientsAndAccounts();
+        } else if(choice == 3) {
+            withdrawMoney();
+        } else if(choice == 4) {
+            depositMoney();
+        } else {
+            exit(0);
+        }
     }
+    
 
 }
 
@@ -29,6 +36,13 @@ void BankApplication::createAccount() {
     double balance;
     double minBalance;
     int type;
+    
+    string numId = to_string(clients.size()+1);
+    while(numId.length() < 3) {
+        numId.insert(0, "0");
+    }
+
+    accId = "FCAI-" + numId;
     cout << "please Enter Client name " << endl;
     cin >> name;
 
@@ -60,12 +74,8 @@ void BankApplication::createAccount() {
         cout << "wrong choice" << endl;
         exit(0);
     } 
-    string numId = to_string(clients.size() + 1);
-    while(numId.length() < 3) {
-        numId.insert(0, "0");
-    }
-    accId = " FCAI-" + numId;
-    cout << "An account was created with ID " << accId << " and Starting Balance" << balance << endl;
+    
+    cout << "An account was created with ID " << accId << " and Starting Balance " << balance << endl;
     
 }
 

@@ -2,9 +2,9 @@
 #define BANKAPPLICATION_H
 
 #include <iostream>
-#include "bankAccount.h"
-#include "savingsBankAccount.h"
-#include "client.h"
+#include "bankAccount.cpp"
+#include "savingsBankAccount.cpp"
+#include "client.cpp"
 #include <vector>
 using namespace std;
 
@@ -14,13 +14,13 @@ class BankApplication {
     vector<Client> clients;
     string accId;
     public:
-    BankApplication();
+    BankApplication(){}
     void showMenu();
     void createAccount();
     void listClientsAndAccounts();
     void withdrawMoney();
     void depositMoney();
-    
+
 
 };
 

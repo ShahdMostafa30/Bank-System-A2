@@ -16,8 +16,7 @@ class SavingsBankAccount : public BankAccount {
     double getMinimumBalance();
     int withdraw(double amount);
     int deposit(double amount);
-    bool getType();
-    
+    bool isSaving();
 };
 
 #endif
