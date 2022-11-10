@@ -1,6 +1,8 @@
 #include "savingsBankAccount.h"
 
-    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000): BankAccount(accountID, balance) {
+    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000) {
+        this->accountID = accountID;
+        this->balance = balance;
         if (balance >= minBalance) {
             this->minimumBalance = minBalance;
         } else {
@@ -40,4 +42,8 @@
         } else {
             return 0;
         }
+    }
+
+    bool SavingsBankAccount::isSaving() {
+        return true;
     }

@@ -14,8 +14,8 @@ class Client{
     BankAccount *bankAcc;
     SavingsBankAccount *savingAcc;
     public:
-    Client(string n, string a, string p, BankAccount _bankAcc);
-    Client(string n, string a, string p, SavingsBankAccount _bankAcc);
+    Client(string n, string a, string p, BankAccount* _bankAcc);
+    Client(string n, string a, string p, SavingsBankAccount* _bankAcc);
     string getName();
     string getAddress();
     string getPhoneNum();

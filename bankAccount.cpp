@@ -70,5 +70,5 @@ int BankAccount :: deposit(double amount)
     }
 
 bool BankAccount::isSaving() {
-    return this->savings;
+    return false;
 }

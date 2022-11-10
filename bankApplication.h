@@ -10,8 +10,8 @@ using namespace std;
 
 class BankApplication {
     private:
-    vector<BankAccount> accounts;
-    vector<Client> clients;
+    vector<BankAccount*> accounts;
+    vector<Client*> clients;
     string accId;
     public:
     BankApplication(){}
