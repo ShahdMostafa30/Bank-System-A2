@@ -1,8 +1,7 @@
 #include "savingsBankAccount.h"
 
-    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000) {
+    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000): BankAccount(accountID, balance) {
         if (balance >= minBalance) {
-            BankAccount(accountID, balance);
             this->minimumBalance = minBalance;
         } else {
             cout << "balance should be greater than or equal minimum balance";
@@ -14,8 +13,8 @@
     }
 
     // setters
-    void SavingsBankAccount::setMinimumBalance(double minimumBalance) {
-        this->minimumBalance = minimumBalance;
+    void SavingsBankAccount::setMinimumBalance(double minBalance) {
+        this->minimumBalance = minBalance;
     }
 
     // getters
@@ -25,8 +24,8 @@
 
     // withdraw
     int SavingsBankAccount::withdraw(double amount) {
-        if (BankAccount::balance - amount >= minimumBalance) {
-            BankAccount::balance -= amount;
+        if (this->balance - amount >= minimumBalance) {
+            this->balance -= amount;
             return 1;
         } else {
             return 0;
@@ -36,7 +35,7 @@
     // deposit
     int SavingsBankAccount::deposit(double amount) {
         if (amount >= 100) {
-            balance += amount;
+            this->balance += amount;
             return 1;
         } else {
             return 0;
