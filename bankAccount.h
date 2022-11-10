@@ -8,6 +8,7 @@ class BankAccount {
     protected:
     string accountID;
     double balance;
+    bool savings = false;
     public:
     BankAccount();
     BankAccount(string accountID , double balance);
@@ -17,6 +18,7 @@ class BankAccount {
     double getBalance();
     int withdraw(double amount);
     int deposit(double amount);
+    bool isSaving();
 };
 
 #endif
