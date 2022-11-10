@@ -6,7 +6,7 @@ void BankApplication::showMenu() {
         cout << "Welcome to our Banking Application "<< endl
         << "1. Create a New Account" << endl
         << "2. List Clients and Accounts" << endl
-        <<" 3. Withdraw Money" << endl
+        << "3. Withdraw Money" << endl
         << "4. Deposit Money" << endl
         << "0. exit " << endl;
 
@@ -62,9 +62,21 @@ void BankApplication::createAccount() {
         accounts.push_back(new BankAccount(accId, balance));
     } else if (type == 2) {
         cout << "Enter the minimum Balance" << endl;
+        cout << "Enter (0) to keep the default minimum balance = 1000" << endl;
         cin >> minBalance;
-        clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));
-        accounts.push_back(new SavingsBankAccount(accId, balance, minBalance));
+
+
+        if(balance >= minBalance && minBalance != 0) {
+            clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));
+            accounts.push_back(new SavingsBankAccount(accId, balance, minBalance));
+        } else if (balance >= 1000 && minBalance == 0) {
+            clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance)));
+            accounts.push_back(new SavingsBankAccount(accId, balance));
+        } else {
+            cout << "balance should be greater than or equal minimum balance" << endl;
+            exit(0);
+        }
+        
     } else {
         cout << "wrong choice" << endl;
         exit(0);
@@ -82,7 +94,7 @@ void BankApplication::listClientsAndAccounts(){
         cout << "AccId : " << accounts[i]->getAccountID() << endl;
         cout << "Acc Type : ";
         accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl;
-        cout << "Balance : " << accounts[i]->getBalance() << endl;
+        cout << "Balance : " << accounts[i]->getBalance() << endl << endl; 
     }
 }
 
@@ -90,9 +102,11 @@ void BankApplication::withdrawMoney() {
     int amount;
     cout << "Please Enter Account ID (e.g., FCAI-015)" << endl;
     cin >> accId;
+    bool validId;
     
     for(int i = 0; i < accounts.size(); i++) {
         if(accounts[i]->getAccountID() == accId) {
+            validId = true;
             cout << "Acc Type : ";
             accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
             cout << "Balance : " << accounts[i]->getBalance() << endl;
@@ -110,15 +124,20 @@ void BankApplication::withdrawMoney() {
         }
     }
     
+    if(!validId) {
+        cout << "Id not found " << endl;
+    }
 }
 
 void BankApplication::depositMoney() {
     int amount;
     cout << "Please Enter Account ID (e.g., FCAI-015)" << endl;
     cin >> accId;
+    bool validId;
     
     for(int i = 0; i < accounts.size(); i++) {
         if(accounts[i]->getAccountID() == accId) {
+            validId = true;
             cout << "Acc Type : ";
             accounts[i]->isSaving() ? cout << "Saving" << endl : cout << "Basic" << endl; 
             cout << "Balance : " << accounts[i]->getBalance() << endl;
@@ -133,5 +152,9 @@ void BankApplication::depositMoney() {
                 cout << "Sorry. This is less than what you can deposit." << endl;
             }
         }
+    }
+
+    if(!validId) {
+        cout << "Id not found " << endl;
     }
 }

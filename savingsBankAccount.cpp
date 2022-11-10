@@ -3,11 +3,7 @@
     SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000) {
         this->accountID = accountID;
         this->balance = balance;
-        if (balance >= minBalance) {
-            this->minimumBalance = minBalance;
-        } else {
-            cout << "balance should be greater than or equal minimum balance";
-        }
+        this->minimumBalance = minBalance;
     }
 
     SavingsBankAccount::SavingsBankAccount() : BankAccount() {
