@@ -2,7 +2,7 @@
 #define SAVINGSBANKACCOUNT_H
 
 #include <iostream>
-#include "bankAccount.cpp"
+#include "bankAccount.h"
 using namespace std;
 
 class SavingsBankAccount : public BankAccount {

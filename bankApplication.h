@@ -6,6 +6,7 @@
 #include "savingsBankAccount.cpp"
 #include "client.cpp"
 #include <vector>
+#include <fstream>
 using namespace std;
 
 class BankApplication {
@@ -13,6 +14,8 @@ class BankApplication {
     vector<BankAccount*> accounts;
     vector<Client*> clients;
     string accId;
+    void readFromFile();
+    void writeToFile();
     public:
     BankApplication(){}
     void showMenu();
@@ -20,8 +23,6 @@ class BankApplication {
     void listClientsAndAccounts();
     void withdrawMoney();
     void depositMoney();
-
-
 };
 
 #endif

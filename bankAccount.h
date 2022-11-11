@@ -15,8 +15,8 @@ class BankAccount {
     void setAccountID (string accountID);
     string getAccountID ();
     double getBalance();
-        virtual int withdraw(double amount);
-        virtual int deposit(double amount);
+    virtual int withdraw(double amount);
+    virtual int deposit(double amount);
     virtual bool isSaving();
 };
 
