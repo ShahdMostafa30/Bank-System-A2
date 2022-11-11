@@ -65,7 +65,7 @@ void BankApplication::createAccount() {
         cout << "Enter (0) to keep the default minimum balance = 1000" << endl;
         cin >> minBalance;
 
-
+        
         if(balance >= minBalance && minBalance != 0) {
             clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));
             accounts.push_back(new SavingsBankAccount(accId, balance, minBalance));

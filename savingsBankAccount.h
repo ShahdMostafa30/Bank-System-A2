@@ -2,7 +2,7 @@
 #define SAVINGSBANKACCOUNT_H
 
 #include <iostream>
-#include "bankAccount.h"
+#include "bankAccount.cpp"
 using namespace std;
 
 class SavingsBankAccount : public BankAccount {
@@ -10,7 +10,7 @@ class SavingsBankAccount : public BankAccount {
     double minimumBalance;
     bool savings = true;
     public:
-    SavingsBankAccount(string accountID, double balance, double minBalance);
+    SavingsBankAccount(string accountID, double balance, double minBalance = 1000);
     SavingsBankAccount();
     void setMinimumBalance(double minimumBalance);
     double getMinimumBalance();
