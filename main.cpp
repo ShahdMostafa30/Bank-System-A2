@@ -1,5 +1,5 @@
 #include <iostream>
-#include "bankApplication.cpp"
+#include "bankApplication.h"
 using namespace std;
 int main() {
     BankApplication bankApp;
