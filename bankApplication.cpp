@@ -1,7 +1,87 @@
 #include "bankApplication.h"
 
-void BankApplication::showMenu() {
+void BankApplication::readFromFile() {
+    fstream file;
+    file.open("clients.txt", ios::in);
+    string line;
+    string name;
+    string address;
+    string phone;
+    double balance;
+    double minBalance;
+    int type;
+    int counter = 0;
+    string numId = to_string(clients.size()+1);
+    while(numId.length() < 3) {
+        numId.insert(0, "0");
+    }
+    
+    if(file.is_open()) {
+        while(getline(file, line)) {
+            counter++;
+            if(counter == 1) {
+                name = line;
+            } else if (counter == 2) {
+                address = line;
+            } else if (counter == 3) {
+                phone = line;
+            } else if (counter == 4) {
+                type = stoi(line);
+            } else if (counter == 5) {
+                balance = stoi(line);
+            } else if (counter == 6) {
+                if(line != "-") {
+                    minBalance = stoi(line);
+                }
+            } else if (counter == 7) {
+                accId = "FCAI-" + numId;
+                if(type == 1) {
+                    clients.push_back(new Client(name, address, phone, new BankAccount(accId, balance)));
+                    accounts.push_back(new BankAccount(accId, balance));
+                } else if (type == 2) {
+                    clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));
+                    accounts.push_back(new SavingsBankAccount(accId, balance, minBalance)); 
+                }
+                counter = 0;
+                
+                numId = to_string(stoi(numId) + 1);
+                while(numId.length() < 3) {
+                    numId.insert(0, "0");
+                }
 
+                
+            }
+        }
+    }
+
+    file.close();
+}
+
+void BankApplication::writeToFile() {
+    fstream file;
+    file.open("clients.txt", ios::out);
+
+    for(int i = 0; i < clients.size(); i++) {
+        file << clients[i]->getName() << endl;
+        file << clients[i]->getAddress() << endl;
+        file << clients[i]->getPhoneNum() << endl;
+        accounts[i]->isSaving() ? file << 2 << endl : file << 1 << endl;
+        file << accounts[i]->getBalance() << endl;
+        if(accounts[i]->isSaving()) {
+            SavingsBankAccount* acc = static_cast<SavingsBankAccount*>(accounts[i]);
+            file << acc->getMinimumBalance() << endl << endl;
+        } else {
+            file << "-" << endl << endl;
+        }
+
+    }
+
+    file.close();
+
+}
+
+void BankApplication::showMenu() {
+    readFromFile();
     while(true) {
         cout << "Welcome to our Banking Application "<< endl
         << "1. Create a New Account" << endl
@@ -22,6 +102,7 @@ void BankApplication::showMenu() {
         } else if(choice == 4) {
             depositMoney();
         } else {
+            writeToFile();
             exit(0);
         }
     }
@@ -64,7 +145,6 @@ void BankApplication::createAccount() {
         cout << "Enter the minimum Balance" << endl;
         cout << "Enter (0) to keep the default minimum balance = 1000" << endl;
         cin >> minBalance;
-
 
         if(balance >= minBalance && minBalance != 0) {
             clients.push_back(new Client(name, address, phone, new SavingsBankAccount(accId, balance, minBalance)));

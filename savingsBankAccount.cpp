@@ -1,6 +1,6 @@
 #include "savingsBankAccount.h"
 
-    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance = 1000) {
+    SavingsBankAccount::SavingsBankAccount(string accountID, double balance, double minBalance) {
         this->accountID = accountID;
         this->balance = balance;
         this->minimumBalance = minBalance;
